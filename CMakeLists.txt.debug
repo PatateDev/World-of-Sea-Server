@@ -1,0 +1,51 @@
+cmake_minimum_required(VERSION 2.6)
+project(world-of-sea-server)
+
+if (NOT CMAKE_BUILD_TYPE)
+	set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel." FORCE)
+endif()
+
+set(SFML_NETWORK_LIB_NAME sfml-network-d)
+set(SFML_SYSTEM_LIB_NAME sfml-system-d)
+set(MYSQL_LIB_NAME mysqlcppconn)
+
+if (NOT SFML_INCLUDE_PATH)
+	set(SFML_INCLUDE_PATH "/usr/include" CACHE PATH "Location of SFML's include folder" FORCE)
+endif()
+if (NOT SFML_LIBRARY_PATH)
+	set(SFML_LIBRARY_PATH "/usr/lib" CACHE PATH "Location of SFML's library folder" FORCE)
+endif()
+
+if (NOT MYSQL_INCLUDE_PATH)
+	set(MYSQL_INCLUDE_PATH "/usr/include" CACHE PATH "Location of MySQL's include folder" FORCE)
+endif()
+if (NOT MYSQL_LIBRARY_PATH)
+	set(MYSQL_LIBRARY_PATH "/usr/lib" CACHE PATH "Location of MySQL's library folder" FORCE)
+endif()
+
+set(EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})
+set(EXECUTABLE world-of-sea-server)
+
+
+include_directories(${SFML_INCLUDE_PATH})
+include_directories(${MYSQL_INCLUDE_PATH})
+link_directories(${SFML_LIBRARY_PATH})
+link_directories(${MYSQL_LIBRARY_PATH})
+
+file(
+    GLOB_RECURSE
+    sources
+    src/*
+)
+
+add_executable(
+    ${EXECUTABLE}
+    ${sources}
+)
+
+target_link_libraries(
+	${EXECUTABLE}
+	${SFML_NETWORK_LIB_NAME}
+	${SFML_SYSTEM_LIB_NAME}
+	${MYSQL_LIB_NAME}
+)
