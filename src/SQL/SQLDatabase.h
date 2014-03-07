@@ -21,6 +21,12 @@ public:
 	bool init(char* login, char* password, char* address, char* database);
 
 private:
+	/*
+	 * Setup the database's tables
+	 */
+	bool setupTables();
+
+private:
 	sf::Mutex m_mutex;
 	sql::mysql::MySQL_Driver *m_driver;
 	sql::Connection *m_connection;
