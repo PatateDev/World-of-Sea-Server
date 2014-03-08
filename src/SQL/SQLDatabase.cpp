@@ -44,6 +44,18 @@ bool SQLDatabase::init(char* login, char* password, char* address, char* databas
     }
 }
 
+sql::Statement* SQLDatabase::createStatement()
+{
+    sf::Lock lock(m_mutex);
+    return m_connection->createStatement();
+}
+
+sql::PreparedStatement* SQLDatabase::prepareStatement(std::string statement)
+{
+    sf::Lock lock(m_mutex);
+    return m_connection->prepareStatement(statement);
+}
+
 bool SQLDatabase::setupTables()
 {
     std::cout << "Setting up tables ..." << std::endl;
@@ -51,7 +63,7 @@ bool SQLDatabase::setupTables()
     try
     {
         sql::Statement *statement = m_connection->createStatement();
-        statement->execute("CREATE TABLE IF NOT EXISTS users (username VARCHAR(16) NOT NULL, password CHAR(16) NOT NULL, ip CHAR(15), session CHAR(16), PRIMARY KEY (username)) ENGINE=INNODB;");
+        statement->execute("CREATE TABLE IF NOT EXISTS users (username VARCHAR(16) NOT NULL, password CHAR(16) NOT NULL, ip INT UNSIGNED, session CHAR(16), PRIMARY KEY (username)) ENGINE=INNODB;");
 
         delete statement;
     }

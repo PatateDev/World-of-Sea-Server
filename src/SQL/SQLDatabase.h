@@ -20,6 +20,10 @@ public:
 
 	bool init(char* login, char* password, char* address, char* database);
 
+	sql::Statement* createStatement();
+
+	sql::PreparedStatement* prepareStatement(std::string statement);
+
 private:
 	/*
 	 * Setup the database's tables
