@@ -1,6 +1,7 @@
 #include "Main.h"
 #include "SQL/SQLDatabase.h"
 #include "SQL/UsersTable.h"
+#include "LoginService.h"
 
 int main(int argc, char **argv)
 {
@@ -44,6 +45,27 @@ int main(int argc, char **argv)
 	    std::cout << "Setting session : '48v4wq51dc'" << std::endl;
 	    table.setSession("mathdu07", "48v4wq51dc");
 	}
+	
+	LoginService login(database);
+	sf::Thread loginThread(&LoginService::run, &login);
+	loginThread.launch();
+	
+	while (true)
+	{
+	    std::string cmd;
+	    std::cout << "> ";
+	    std::cin >> cmd;
+	    
+	    if (cmd.compare("exit") == 0)
+	    {
+	        login.stop();
+	        break;
+	    }
+	    else
+	        std::cout << cmd << " : unknown command" << std::endl;
+	}
+	
+	loginThread.wait();
 
 	return EXIT_SUCCESS;
 }

@@ -5,10 +5,11 @@
 #include <cstdlib>
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>
-#include "SQL/SQLDatabase.h"
 
 #define SERVER_VERSION_MAJOR 0
 #define SERVER_VERSION_MINOR 0
 #define SERVER_VERSION_PATCH 1
+
+#define LOGIN_PORT 23291
 
 #endif /* MAIN_H_ */
