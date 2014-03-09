@@ -50,9 +50,9 @@ LoginService::LoginService(SQLDatabase &db)
                     {
                     case LOGIN:
                     {
-                        sf::String username, passwordMD5;
+                        sf::String username, password;
                         packet >> username;
-                        packet >> passwordMD5;
+                        packet >> password;
                         
                         if (!m_table.isRegistered(username.toAnsiString()))
                         {
@@ -60,7 +60,7 @@ LoginService::LoginService(SQLDatabase &db)
                             break;
                         }
                         
-                        if (m_table.getPassword(username.toAnsiString()).compare(passwordMD5.toAnsiString()) == 0)
+                        if (m_table.getPassword(username.toAnsiString()).compare(password.toAnsiString()) == 0)
                         {
                             std::string session = generateSession();
                             m_table.setSession(username.toAnsiString(), session);

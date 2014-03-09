@@ -38,8 +38,8 @@ int main(int argc, char **argv)
 	    statement->execute("INSERT INTO users VALUES ('mathdu07', 'password', NULL, NULL)");
 	    delete statement;
 
-	    std::cout << "Setting password : 'a random MD5'" << std::endl;
-	    table.setPassword("mathdu07", "a random MD5");
+	    std::cout << "Setting password : 'a random'" << std::endl;
+	    table.setPassword("mathdu07", "a random");
 	    std::cout << "Setting IP : 127.0.0.1" << std::endl;
 	    table.setIP("mathdu07", sf::IpAddress(127, 0, 0, 1));
 	    std::cout << "Setting session : '48v4wq51dc'" << std::endl;
