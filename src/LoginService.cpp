@@ -33,13 +33,12 @@ LoginService::LoginService(SQLDatabase &db)
         {
             m_mutex.unlock();
         
-            if (selector.wait(sf::seconds(5)) && selector.isReady(m_listener))
+            if (selector.wait(sf::seconds(5))/* && selector.isReady(m_listener)*/)
             {
                 sf::TcpSocket socket;
             
                 if (m_listener.accept(socket) == sf::Socket::Done) 
                 {
-                    std::cout << "Client's connected from " << socket.getRemoteAddress().toString() << std::endl;
                     sf::Packet packet;
                     socket.receive(packet);
                     sf::Uint8 id;
@@ -67,6 +66,7 @@ LoginService::LoginService(SQLDatabase &db)
                             m_table.setSession(username.toAnsiString(), session);
                             m_table.setIP(username.toAnsiString(), socket.getRemoteAddress());
                             response << (sf::Uint8) SUCCESS << sf::String(session);
+                            std::cout << "[LOGIN] " << username.toAnsiString() << " has been logged in from " << socket.getRemoteAddress().toString() << std::endl;
                         }
                         else
                         {
@@ -85,15 +85,15 @@ LoginService::LoginService(SQLDatabase &db)
                 }
                 else
                 {
-                    std::cout << "Lost connection from " << socket.getRemoteAddress().toString() << std::endl;
+                    std::cout << "[LOGIN] Lost connection from " << socket.getRemoteAddress().toString() << std::endl;
                 }
             }
         
             m_mutex.lock();
         }
-    
-        m_listener.close();
     }
+    
+    m_listener.close();
  }
  
  void LoginService::stop()
