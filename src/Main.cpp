@@ -20,6 +20,9 @@ int main(int argc, char **argv)
 	{
 	    return EXIT_FAILURE;
 	}
+	
+	//Initialize random seed
+	srand(time(NULL));
 
 	//Testing database
 	UsersTable table(database);

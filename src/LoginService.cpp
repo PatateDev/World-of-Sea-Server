@@ -3,9 +3,10 @@
 #include <iostream>
 
 LoginService::LoginService(SQLDatabase &db)
-: m_listener(), m_table(db), m_running(false), m_mutex()
+: m_listener(), m_table(db), m_running(false), m_mutex(),
+  m_dictionnaryLength(36)
 {
-
+    m_dictionnary = std::string("0123456789abcdefghijklmnopqrstuvwxyz").c_str();
 }
  
  LoginService::~LoginService()
@@ -105,6 +106,12 @@ LoginService::LoginService(SQLDatabase &db)
  
  std::string LoginService::generateSession() const
  {
-    //TODO
-    return "session";
+    char session[16];
+    
+    for (unsigned int i = 0; i < 16; i++)
+    {
+        session[i] = m_dictionnary[rand() % m_dictionnaryLength];
+    }
+    
+    return std::string(session);
  }
