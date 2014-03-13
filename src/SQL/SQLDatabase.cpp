@@ -1,82 +1,60 @@
 #include "SQLDatabase.h"
-#include <mysql_connection.h>
+#include <iostream>
 #include <sstream>
 
 SQLDatabase::SQLDatabase()
 : m_mutex()
 {
-    m_connection = 0;
-    m_driver = sql::mysql::get_driver_instance();
+    m_mysql = mysql_init(NULL);
 }
 
 SQLDatabase::~SQLDatabase()
 {
-    if (m_connection)
-        delete m_connection;
+    mysql_close(m_mysql);
 }
 
 bool SQLDatabase::init(char* login, char* password, char* address, char* database)
 {
-    if (m_connection)
+    if (mysql_real_connect(m_mysql, address, login, password, database, 0, NULL, 0) != NULL)
     {
-        std::cerr << "The database has already be initialized" << std::endl;
-        return false;
-    }
-
-    try
-    {
-        std::ostringstream stream;
-        stream << "tcp://" << address << ":3306/" << database;
-        m_connection = m_driver->connect(stream.str(), login, password);
         std::cout << "Connect successfully to MySQL database" << std::endl;
 
         return setupTables();
     }
-    catch(sql::SQLException &e)
+    else
     {
         std::cout <<  "Can't connect to the database :" << std::endl;
-        std::cout << "# ERR: SQLException in " << __FILE__;
+        std::cout << "Error in " << __FILE__;
         std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
-        std::cout << "# ERR: " << e.what();
-        std::cout << " (MySQL error code: " << e.getErrorCode();
-        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+        std::cout << mysql_error(m_mysql) << std::endl;
         return false;
     }
 }
 
-sql::Statement* SQLDatabase::createStatement()
+MYSQL_RES* SQLDatabase::executeQuery(std::string query)
 {
     sf::Lock lock(m_mutex);
-    return m_connection->createStatement();
-}
-
-sql::PreparedStatement* SQLDatabase::prepareStatement(std::string statement)
-{
-    sf::Lock lock(m_mutex);
-    return m_connection->prepareStatement(statement);
+    
+    if (mysql_query(m_mysql, query.c_str()) != 0)
+    {
+        std::cout << "Can't execute query : \"" << query << "\", error thrown : ";
+        std::cout << mysql_error(m_mysql) << std::endl;
+    }
+    
+    return mysql_use_result(m_mysql);
 }
 
 bool SQLDatabase::setupTables()
 {
     std::cout << "Setting up tables ..." << std::endl;
 
-    try
+    if (mysql_query(m_mysql, "CREATE TABLE IF NOT EXISTS users (username VARCHAR(16) NOT NULL, password CHAR(16) NOT NULL, ip INT UNSIGNED, session CHAR(16), PRIMARY KEY (username)) ENGINE=INNODB;") != 0)
     {
-        sql::Statement *statement = m_connection->createStatement();
-        statement->execute("CREATE TABLE IF NOT EXISTS users (username VARCHAR(16) NOT NULL, password CHAR(16) NOT NULL, ip INT UNSIGNED, session CHAR(16), PRIMARY KEY (username)) ENGINE=INNODB;");
-
-        delete statement;
-    }
-    catch(sql::SQLException &e)
-    {
-        std::cout <<  "Can't setup tables:" << std::endl;
-        std::cout << "# ERR: SQLException in " << __FILE__;
-        std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
-        std::cout << "# ERR: " << e.what();
-        std::cout << " (MySQL error code: " << e.getErrorCode();
-        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+        std::cout <<  "Can't setup tables : ";
+        std::cout << mysql_error(m_mysql) << std::endl;
         return false;
     }
+    
     return true;
 }
 

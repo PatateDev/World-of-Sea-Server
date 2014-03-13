@@ -34,20 +34,6 @@ int main(int argc, char **argv)
 	    std::cout << "Last IP : " << table.getIP("mathdu07").toString() << " | ";
 	    std::cout << "Session : " << table.getSession("mathdu07") << std::endl;
 	}
-	else
-	{
-	    std::cout << "Not found, creating it" << std::endl;
-	    sql::Statement* statement = database.createStatement();
-	    statement->execute("INSERT INTO users VALUES ('mathdu07', 'password', NULL, NULL)");
-	    delete statement;
-
-	    std::cout << "Setting password : 'a random'" << std::endl;
-	    table.setPassword("mathdu07", "a random");
-	    std::cout << "Setting IP : 127.0.0.1" << std::endl;
-	    table.setIP("mathdu07", sf::IpAddress(127, 0, 0, 1));
-	    std::cout << "Setting session : '48v4wq51dc'" << std::endl;
-	    table.setSession("mathdu07", "48v4wq51dc");
-	}
 	
 	LoginService login(database);
 	sf::Thread loginThread(&LoginService::run, &login);

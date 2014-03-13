@@ -3,13 +3,7 @@
 
 #include <SFML/System.hpp>
 #include <SFML/Network.hpp>
-#include <mysql_driver.h>
-
-#include <cppconn/driver.h>
-#include <cppconn/exception.h>
-#include <cppconn/resultset.h>
-#include <cppconn/statement.h>
-#include <cppconn/prepared_statement.h>
+#include <mysql/mysql.h>
 
 class SQLDatabase
 {
@@ -19,10 +13,8 @@ public:
 	virtual ~SQLDatabase();
 
 	bool init(char* login, char* password, char* address, char* database);
-
-	sql::Statement* createStatement();
-
-	sql::PreparedStatement* prepareStatement(std::string statement);
+	
+	MYSQL_RES* executeQuery(std::string query);
 
 private:
 	/*
@@ -32,8 +24,7 @@ private:
 
 private:
 	sf::Mutex m_mutex;
-	sql::mysql::MySQL_Driver *m_driver;
-	sql::Connection *m_connection;
+	MYSQL *m_mysql;
 };
 
 #endif /* SQLDATABASE_H_ */

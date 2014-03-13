@@ -7,7 +7,7 @@ endif()
 
 set(SFML_NETWORK_LIB_NAME sfml-network-d)
 set(SFML_SYSTEM_LIB_NAME sfml-system-d)
-set(MYSQL_LIB_NAME mysqlcppconn)
+set(MYSQL_LIB_NAME mysqlclient)
 
 if (NOT SFML_INCLUDE_PATH)
 	set(SFML_INCLUDE_PATH "/usr/include" CACHE PATH "Location of SFML's include folder" FORCE)

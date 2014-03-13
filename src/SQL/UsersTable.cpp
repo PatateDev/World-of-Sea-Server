@@ -1,47 +1,39 @@
 #include "UsersTable.h"
-#include <memory> //std::auto_ptr
+#include <iostream>
+#include <sstream>
 
 UsersTable::UsersTable(SQLDatabase& db)
-: Table(db, "users")
+: Table(db, "users"),
+  m_usernameIndex(0), m_passwordIndex(1), m_ipIndex(2), m_sessionIndex(3)
 {
-    m_statement = db.createStatement();
-    m_getStatement = db.prepareStatement("SELECT * FROM users WHERE username=?");
-    m_setPasswordStatement = db.prepareStatement("UPDATE users SET password=? WHERE username=?");
-    m_setIpStatement = db.prepareStatement("UPDATE users SET ip=? WHERE username=?");
-    m_setSessionStatement = db.prepareStatement("UPDATE users SET session=? WHERE username=?");
+
 }
 
 UsersTable::~UsersTable()
 {
-    delete m_statement;
-    delete m_getStatement;
-    delete m_setPasswordStatement;
-    delete m_setIpStatement;
-    delete m_setSessionStatement;
+
 }
 
 std::string UsersTable::getPassword(std::string username) const
 {
     std::string password("");
+    std::ostringstream query;
+    query << "SELECT * FROM " << m_name;
+    query << " WHERE username='" << username << "'";
 
-    try
+    MYSQL_RES *result = m_database.executeQuery(query.str());
+    
+    if (result != 0)
     {
-        m_getStatement->setString(1, username);
-        std::auto_ptr<sql::ResultSet> set(m_getStatement->executeQuery());
-
-        if (set.get()->next())
-        {
-            password = set.get()->getString("password");
-        }
+        MYSQL_ROW row = mysql_fetch_row(result);
+        
+        if (row)
+            password = row[m_passwordIndex];
+        else
+            std::cout << "No username matching with \"" << username << "\"" << std::endl;
     }
-    catch(sql::SQLException &e)
-    {
-        std::cout << "# ERR: SQLException in " << __FILE__;
-        std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
-        std::cout << "# ERR: " << e.what();
-        std::cout << " (MySQL error code: " << e.getErrorCode();
-        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
-    }
+    
+    mysql_free_result(result);
 
     return password;
 }
@@ -49,25 +41,30 @@ std::string UsersTable::getPassword(std::string username) const
 sf::IpAddress UsersTable::getIP(std::string username) const
 {
     sf::IpAddress ip;
+    
+    std::ostringstream query;
+    query << "SELECT * FROM " << m_name;
+    query << " WHERE username='" << username << "'";
+    
+    MYSQL_RES *result = m_database.executeQuery(query.str());
 
-    try
+    if (result != 0)
     {
-        m_getStatement->setString(1, username);
-        std::auto_ptr<sql::ResultSet> set(m_getStatement->executeQuery());
-
-        if (set.get()->next())
+        MYSQL_ROW row = mysql_fetch_row(result);
+        
+        if (row)
         {
-            ip = sf::IpAddress(set.get()->getUInt("ip"));
+            std::string ipString = row[m_ipIndex];
+            std::istringstream ipStream(ipString);
+            sf::Uint32 ipBytes;
+            ipStream >> ipBytes;
+            ip = sf::IpAddress(ipBytes);
         }
+        else
+            std::cout << "No username matching with \"" << username << "\"" << std::endl;
     }
-    catch(sql::SQLException &e)
-    {
-        std::cout << "# ERR: SQLException in " << __FILE__;
-        std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
-        std::cout << "# ERR: " << e.what();
-        std::cout << " (MySQL error code: " << e.getErrorCode();
-        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
-    }
+    
+    mysql_free_result(result);
 
     return ip;
 }
@@ -76,107 +73,74 @@ std::string UsersTable::getSession(std::string username) const
 {
     std::string session("");
 
-    try
-    {
-        m_getStatement->setString(1, username);
-        std::auto_ptr<sql::ResultSet> set(m_getStatement->executeQuery());
+    std::ostringstream query;
+    query << "SELECT * FROM " << m_name;
+    query << " WHERE username='" << username << "'";
 
-        if (set.get()->next())
-        {
-            session = set.get()->getString("session");
-        }
-    }
-    catch(sql::SQLException &e)
+    MYSQL_RES *result = m_database.executeQuery(query.str());
+    
+    if (result != 0)
     {
-        std::cout << "# ERR: SQLException in " << __FILE__;
-        std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
-        std::cout << "# ERR: " << e.what();
-        std::cout << " (MySQL error code: " << e.getErrorCode();
-        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+        MYSQL_ROW row = mysql_fetch_row(result);
+        
+        if (row)
+            session = row[m_sessionIndex];
+        else
+            std::cout << "No username matching with \"" << username << "\"" << std::endl;
     }
+    
+    mysql_free_result(result);
 
     return session;
 }
 
-void UsersTable::setPassword(std::string username, std::string passwordMD5)
+void UsersTable::setPassword(std::string username, std::string password)
 {
-    try
-    {
-        m_setPasswordStatement->setString(1, passwordMD5);
-        m_setPasswordStatement->setString(2, username);
-
-        m_setPasswordStatement->execute();
-    }
-    catch(sql::SQLException &e)
-    {
-        std::cout << "# ERR: SQLException in " << __FILE__;
-        std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
-        std::cout << "# ERR: " << e.what();
-        std::cout << " (MySQL error code: " << e.getErrorCode();
-        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
-    }
+    std::ostringstream query;
+    query << "UPDATE " << m_name;
+    query << " SET password='" << password << "'";
+    query << " WHERE username='" << username << "'";
+    m_database.executeQuery(query.str());
 }
 
 void UsersTable::setIP(std::string username, sf::IpAddress address)
 {
-    try
-    {
-        m_setIpStatement->setUInt(1, address.toInteger());
-        m_setIpStatement->setString(2, username);
-
-        m_setIpStatement->execute();
-    }
-    catch(sql::SQLException &e)
-    {
-        std::cout << "# ERR: SQLException in " << __FILE__;
-        std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
-        std::cout << "# ERR: " << e.what();
-        std::cout << " (MySQL error code: " << e.getErrorCode();
-        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
-    }
+    std::ostringstream query;
+    query << "UPDATE " << m_name;
+    query << " SET ip='" << address.toInteger() << "'";
+    query << " WHERE username='" << username << "'";
+    m_database.executeQuery(query.str());
 }
 
 void UsersTable::setSession(std::string username, std::string session)
 {
-    try
-    {
-        m_setSessionStatement->setString(1, session);
-        m_setSessionStatement->setString(2, username);
-
-        m_setSessionStatement->execute();
-    }
-    catch(sql::SQLException &e)
-    {
-        std::cout << "# ERR: SQLException in " << __FILE__;
-        std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
-        std::cout << "# ERR: " << e.what();
-        std::cout << " (MySQL error code: " << e.getErrorCode();
-        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
-    }
+    std::ostringstream query;
+    query << "UPDATE " << m_name;
+    query << " SET session='" << session << "'";
+    query << " WHERE username='" << username << "'";
+    m_database.executeQuery(query.str());
 }
 
 std::vector<std::string> UsersTable::getUsers() const
 {
     std::vector<std::string> v;
 
-    try
-    {
-        std::auto_ptr<sql::ResultSet> set(m_statement->executeQuery("SELECT * FROM users"));
+    std::ostringstream query;
+    query << "SELECT * FROM " << m_name;
+    
+    MYSQL_RES *result = m_database.executeQuery(query.str());
+    MYSQL_ROW row;
 
-        while (set.get()->next())
+    if (result)
+    {
+        while ((row = mysql_fetch_row(result)))
         {
-            v.push_back(set.get()->getString("username"));
+            v.push_back(row[m_usernameIndex]);
         }
     }
-    catch(sql::SQLException &e)
-    {
-        std::cout << "# ERR: SQLException in " << __FILE__;
-        std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
-        std::cout << "# ERR: " << e.what();
-        std::cout << " (MySQL error code: " << e.getErrorCode();
-        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
-    }
-
+    else
+        std::cout << "Can't fetch usernames" << std::endl;
+    
     return v;
 }
 
