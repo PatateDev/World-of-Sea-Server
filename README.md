@@ -15,9 +15,9 @@ How to run - GNU/Linux
      + libmysqlclient.so available in your LD_LIBRARY_PATH (e.g in the lib folder)
 2. Put SFML's libraries in a `lib` folder
 3. Create a shell script named `run.sh` with :
-> `#!/bin/bash`
-> `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/lib`
-> `./world-of-sea-server <username> <password> <address> <database>`
+     + `#!/bin/bash`
+     + `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/lib`
+     + `./world-of-sea-server <username> <password> <address> <database>`
 4. Replace the `<>` by MySQL database's settings
 5. Launch `run.sh`
 
@@ -29,4 +29,7 @@ How to run - Windows
 2. Make sure you have the SFML libraries installed, whether :
     + `libsfml-network.dll` and `libsfml-system.dll`are present in the same folder that `world-of-sea-server.exe`
     + both are available in your PATH
-3. Launch `world-of-sea-server.exe`
+3. Create a batch script named `run.sh` with :
+    + `start world-of-sea-server.exe <username> <password> <address> <database>`
+4. Replace the `<>` by MySQL database's settings
+5. Launch `run.bat`
