@@ -4,9 +4,9 @@
 
 LoginService::LoginService(SQLDatabase &db)
 : m_listener(), m_table(db), m_running(false), m_mutex(),
-  m_dictionnaryLength(36)
+  m_dictionnary("0123456789abcdefghijklmnopqrstuvwxyz")
 {
-    m_dictionnary = std::string("0123456789abcdefghijklmnopqrstuvwxyz").c_str();
+
 }
  
  LoginService::~LoginService()
@@ -33,7 +33,7 @@ LoginService::LoginService(SQLDatabase &db)
         {
             m_mutex.unlock();
         
-            if (selector.wait(sf::seconds(5))/* && selector.isReady(m_listener)*/)
+            if (selector.wait(sf::seconds(5)))
             {
                 sf::TcpSocket socket;
             
@@ -110,7 +110,7 @@ LoginService::LoginService(SQLDatabase &db)
     
     for (unsigned int i = 0; i < 16; i++)
     {
-        session[i] = m_dictionnary[rand() % m_dictionnaryLength];
+        session[i] = m_dictionnary[rand() % m_dictionnary.size()];
     }
     
     return std::string(session);

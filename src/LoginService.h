@@ -38,8 +38,7 @@ private:
     UsersTable m_table;
     bool m_running;
     sf::Mutex m_mutex;
-    const unsigned int m_dictionnaryLength;
-    const char* m_dictionnary;
+    const std::string m_dictionnary;
 };
 
 #endif
