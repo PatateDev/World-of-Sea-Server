@@ -15,3 +15,9 @@
 # Others
 *~
 build
+
+# Code::Blocks files
+*.cpb
+*.depend
+*.layout
+bin
