@@ -1,0 +1,240 @@
+# depslib dependency file v1.0
+1394812044 source:c:\users\antoine\desktop\prgm c\world of sea\world-of-sea-server\src\loginservice.cpp
+	"LoginService.h"
+	"Main.h"
+	<iostream>
+
+1394812044 c:\users\antoine\desktop\prgm c\world of sea\world-of-sea-server\src\loginservice.h
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	"SQL/UsersTable.h"
+	"SQL/SQLDatabase.h"
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Err.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Lock.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Sleep.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.hpp>
+	<SFML/System/Utf.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\config.hpp
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\clock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\export.hpp
+	<SFML/Config.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\time.hpp
+	<SFML/System/Export.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\err.hpp
+	<SFML/System/Export.hpp>
+	<ostream>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\inputstream.hpp
+	<SFML/Config.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\lock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\noncopyable.hpp
+	<SFML/System/Export.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\mutex.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\sleep.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\string.hpp
+	<SFML/System/Export.hpp>
+	<locale>
+	<string>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\thread.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+	<SFML/System/Thread.inl>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\thread.inl
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\threadlocal.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\threadlocalptr.hpp
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.inl>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\threadlocalptr.inl
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\utf.hpp
+	<SFML/Config.hpp>
+	<algorithm>
+	<locale>
+	<string>
+	<cstdlib>
+	<SFML/System/Utf.inl>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\utf.inl
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\vector2.hpp
+	<SFML/System/Vector2.inl>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\vector2.inl
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\vector3.hpp
+	<SFML/System/Vector3.inl>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\system\vector3.inl
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\network.hpp
+	<SFML/System.hpp>
+	<SFML/Network/Ftp.hpp>
+	<SFML/Network/Http.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<SFML/Network/Packet.hpp>
+	<SFML/Network/SocketSelector.hpp>
+	<SFML/Network/TcpListener.hpp>
+	<SFML/Network/TcpSocket.hpp>
+	<SFML/Network/UdpSocket.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\network\ftp.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/TcpSocket.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\network\export.hpp
+	<SFML/Config.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\network\tcpsocket.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/Socket.hpp>
+	<SFML/System/Time.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\network\socket.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/SocketHandle.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<vector>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\network\sockethandle.hpp
+	<SFML/Config.hpp>
+	<basetsd.h>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\network\http.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<SFML/Network/TcpSocket.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<map>
+	<string>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\network\ipaddress.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/System/Time.hpp>
+	<istream>
+	<ostream>
+	<string>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\network\packet.hpp
+	<SFML/Network/Export.hpp>
+	<string>
+	<vector>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\network\socketselector.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\network\tcplistener.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/Socket.hpp>
+
+1374355808 c:\users\antoine\desktop\prgm c\_librarie\sfml-2.1-binaries\include\sfml\network\udpsocket.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/Socket.hpp>
+	<vector>
+
+1394812044 c:\users\antoine\desktop\prgm c\world of sea\world-of-sea-server\src\sql\userstable.h
+	"Table.h"
+	<vector>
+
+1394812044 c:\users\antoine\desktop\prgm c\world of sea\world-of-sea-server\src\sql\table.h
+	"SQLDatabase.h"
+	<string>
+
+1394812286 c:\users\antoine\desktop\prgm c\world of sea\world-of-sea-server\src\sql\sqldatabase.h
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<winsock.h>
+	<mysql/mysql.h>
+
+1135285278 c:\users\antoine\desktop\prgm c\_librarie\mysql_api\mysql\mysql.h
+	<sys/types.h>
+	<winsock.h>
+	"mysql_com.h"
+	"mysql_time.h"
+	"mysql_version.h"
+	"typelib.h"
+	"my_list.h"
+	"my_alloc.h"
+
+1135285456 c:\users\antoine\desktop\prgm c\_librarie\mysql_api\mysql\mysql_com.h
+
+1130013324 c:\users\antoine\desktop\prgm c\_librarie\mysql_api\mysql\mysql_time.h
+
+1130013324 c:\users\antoine\desktop\prgm c\_librarie\mysql_api\mysql\mysql_version.h
+	<custom_conf.h>
+
+1130013326 c:\users\antoine\desktop\prgm c\_librarie\mysql_api\mysql\typelib.h
+
+1130013326 c:\users\antoine\desktop\prgm c\_librarie\mysql_api\mysql\my_list.h
+
+1130013324 c:\users\antoine\desktop\prgm c\_librarie\mysql_api\mysql\my_alloc.h
+
+1394812175 c:\users\antoine\desktop\prgm c\world of sea\world-of-sea-server\src\main.h
+	<iostream>
+	<cstdlib>
+	<SFML/Network.hpp>
+	<SFML/System.hpp>
+	<ctime>
+
+1394812044 source:c:\users\antoine\desktop\prgm c\world of sea\world-of-sea-server\src\main.cpp
+	"Main.h"
+	"SQL/SQLDatabase.h"
+	"SQL/UsersTable.h"
+	"LoginService.h"
+
+1394812044 source:c:\users\antoine\desktop\prgm c\world of sea\world-of-sea-server\src\sql\sqldatabase.cpp
+	"SQLDatabase.h"
+	<iostream>
+	<sstream>
+
+1394812044 source:c:\users\antoine\desktop\prgm c\world of sea\world-of-sea-server\src\sql\table.cpp
+	"Table.h"
+
+1394812044 source:c:\users\antoine\desktop\prgm c\world of sea\world-of-sea-server\src\sql\userstable.cpp
+	"UsersTable.h"
+	<iostream>
+	<sstream>
+
