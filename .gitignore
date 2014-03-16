@@ -18,7 +18,7 @@ build
 *.log
 
 # Code::Blocks files
-*.cpb
+*.cbp
 *.depend
 *.layout
 bin
