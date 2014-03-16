@@ -6,13 +6,13 @@
 
 int main(int argc, char **argv)
 {
-	std::cout << "Starting World of Sea Server v" << SERVER_VERSION_MAJOR <<
-	        "." << SERVER_VERSION_MINOR << "." << SERVER_VERSION_PATCH << std::endl;
+	logger << "Starting World of Sea Server v" << SERVER_VERSION_MAJOR <<
+	        "." << SERVER_VERSION_MINOR << "." << SERVER_VERSION_PATCH << endl;
 
 	if (argc != 5)
 	{
-	    std::cout << "The server must be started with the following MySQL arguments : ";
-	    std::cout << "<username> <password> <address> <database>" << std::endl;
+	    logger << "The server must be started with the following MySQL arguments : ";
+	    logger << "<username> <password> <address> <database>" << endl;
 	    return EXIT_FAILURE;
 	}
 
@@ -27,13 +27,13 @@ int main(int argc, char **argv)
 
 	//Testing database
 	UsersTable table(database);
-	std::cout << "Looking for mathdu07 in users .." << std::endl;
+	logger << "Looking for mathdu07 in users .." << endl;
 	if (table.isRegistered("mathdu07"))
 	{
-	    std::cout << "Find !" << std::endl;
-	    std::cout << "Password MD5 : " << table.getPassword("mathdu07") << " | ";
-	    std::cout << "Last IP : " << table.getIP("mathdu07").toString() << " | ";
-	    std::cout << "Session : " << table.getSession("mathdu07") << std::endl;
+	    logger << "Find !" << endl;
+	    logger << "Password MD5 : " << table.getPassword("mathdu07") << " | ";
+	    logger << "Last IP : " << table.getIP("mathdu07").toString() << " | ";
+	    logger << "Session : " << table.getSession("mathdu07") << endl;
 	}
 	
 	LoginService login(database);
@@ -56,10 +56,10 @@ int main(int argc, char **argv)
 	    }
 	    else if (cmd.compare("ticks") == 0)
 	    {
-	        std::cout << "TPS : " << gameServer.getTicksPerSecond() << std::endl;
+	        logger << "TPS : " << gameServer.getTicksPerSecond() << endl;
 	    }
 	    else
-	        std::cout << cmd << " : unknown command" << std::endl;
+	        logger << cmd << " : unknown command" << endl;
 	}
 	
 	gameThread.wait();

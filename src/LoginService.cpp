@@ -18,9 +18,9 @@ LoginService::LoginService(SQLDatabase &db)
  {
     if (m_listener.listen(LOGIN_PORT) != sf::Socket::Done)
     {
-        std::cout << "Can't listening on port " << LOGIN_PORT << std::endl;
-        std::cout << "Please check your firewall, ";
-        std::cout << "or if the port is already listening by another software" << std::endl;
+        logger << "Can't listening on port " << LOGIN_PORT << endl;
+        logger << "Please check your firewall, ";
+        logger << "or if the port is already listening by another software" << endl;
     }
     else
     {
@@ -66,7 +66,7 @@ LoginService::LoginService(SQLDatabase &db)
                             m_table.setSession(username.toAnsiString(), session);
                             m_table.setIP(username.toAnsiString(), socket.getRemoteAddress());
                             response << (sf::Uint8) SUCCESS << sf::String(session);
-                            std::cout << "[LOGIN] " << username.toAnsiString() << " has been logged in from " << socket.getRemoteAddress().toString() << std::endl;
+                            logger << "[LOGIN] " << username.toAnsiString() << " has been logged in from " << socket.getRemoteAddress().toString() << endl;
                         }
                         else
                         {
@@ -85,7 +85,7 @@ LoginService::LoginService(SQLDatabase &db)
                 }
                 else
                 {
-                    std::cout << "[LOGIN] Lost connection from " << socket.getRemoteAddress().toString() << std::endl;
+                    logger << "[LOGIN] Lost connection from " << socket.getRemoteAddress().toString() << endl;
                 }
             }
         
@@ -99,7 +99,7 @@ LoginService::LoginService(SQLDatabase &db)
  void LoginService::stop()
  {
     m_mutex.lock();
-    std::cout << "Stopping the login service" << std::endl;
+    logger << "Stopping the login service" << endl;
     m_running = false;
     m_mutex.unlock();
  }

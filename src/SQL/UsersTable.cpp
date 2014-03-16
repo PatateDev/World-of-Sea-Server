@@ -1,5 +1,5 @@
 #include "UsersTable.h"
-#include <iostream>
+#include "../Logger.h"
 #include <sstream>
 
 UsersTable::UsersTable(SQLDatabase& db)
@@ -30,7 +30,7 @@ std::string UsersTable::getPassword(std::string username) const
         if (row)
             password = row[m_passwordIndex];
         else
-            std::cout << "No username matching with \"" << username << "\"" << std::endl;
+            logger << "No username matching with \"" << username << "\"" << endl;
     }
     
     mysql_free_result(result);
@@ -61,7 +61,7 @@ sf::IpAddress UsersTable::getIP(std::string username) const
             ip = sf::IpAddress(ipBytes);
         }
         else
-            std::cout << "No username matching with \"" << username << "\"" << std::endl;
+            logger << "No username matching with \"" << username << "\"" << endl;
     }
     
     mysql_free_result(result);
@@ -86,7 +86,7 @@ std::string UsersTable::getSession(std::string username) const
         if (row)
             session = row[m_sessionIndex];
         else
-            std::cout << "No username matching with \"" << username << "\"" << std::endl;
+            logger << "No username matching with \"" << username << "\"" << endl;
     }
     
     mysql_free_result(result);
@@ -139,7 +139,7 @@ std::vector<std::string> UsersTable::getUsers() const
         }
     }
     else
-        std::cout << "Can't fetch usernames" << std::endl;
+        logger << "Can't fetch usernames" << endl;
     
     return v;
 }

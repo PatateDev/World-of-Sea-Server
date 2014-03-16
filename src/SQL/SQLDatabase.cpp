@@ -1,5 +1,5 @@
 #include "SQLDatabase.h"
-#include <iostream>
+#include "../Logger.h"
 #include <sstream>
 
 SQLDatabase::SQLDatabase()
@@ -17,16 +17,16 @@ bool SQLDatabase::init(char* login, char* password, char* address, char* databas
 {
     if (mysql_real_connect(m_mysql, address, login, password, database, 0, NULL, 0) != NULL)
     {
-        std::cout << "Connect successfully to MySQL database" << std::endl;
+        logger << "Connect successfully to MySQL database" << endl;
 
         return setupTables();
     }
     else
     {
-        std::cout <<  "Can't connect to the database :" << std::endl;
-        std::cout << "Error in " << __FILE__;
-        std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
-        std::cout << mysql_error(m_mysql) << std::endl;
+        logger <<  "Can't connect to the database :" << endl;
+        logger << "Error in " << __FILE__;
+        logger << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
+        logger << mysql_error(m_mysql) << endl;
         return false;
     }
 }
@@ -37,8 +37,8 @@ MYSQL_RES* SQLDatabase::executeQuery(std::string query)
     
     if (mysql_query(m_mysql, query.c_str()) != 0)
     {
-        std::cout << "Can't execute query : \"" << query << "\", error thrown : ";
-        std::cout << mysql_error(m_mysql) << std::endl;
+        logger << "Can't execute query : \"" << query << "\", error thrown : ";
+        logger << mysql_error(m_mysql) << endl;
     }
     
     return mysql_use_result(m_mysql);
@@ -46,12 +46,12 @@ MYSQL_RES* SQLDatabase::executeQuery(std::string query)
 
 bool SQLDatabase::setupTables()
 {
-    std::cout << "Setting up tables ..." << std::endl;
+    logger << "Setting up tables ..." << endl;
 
     if (mysql_query(m_mysql, "CREATE TABLE IF NOT EXISTS users (username VARCHAR(16) NOT NULL, password CHAR(16) NOT NULL, ip INT UNSIGNED, session CHAR(16), PRIMARY KEY (username)) ENGINE=INNODB;") != 0)
     {
-        std::cout <<  "Can't setup tables : ";
-        std::cout << mysql_error(m_mysql) << std::endl;
+        logger <<  "Can't setup tables : ";
+        logger << mysql_error(m_mysql) << endl;
         return false;
     }
     

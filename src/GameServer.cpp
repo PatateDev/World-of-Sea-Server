@@ -19,9 +19,9 @@ void GameServer::run()
 {
     if (m_listener.listen(WOS_GAME_PORT) != sf::Socket::Done)
     {
-        std::cout << "Can't listening on port " << WOS_GAME_PORT << std::endl;
-        std::cout << "Please check your firewall, ";
-        std::cout << "or if the port is already listening by another software" << std::endl;
+        logger << "Can't listening on port " << WOS_GAME_PORT << endl;
+        logger << "Please check your firewall, ";
+        logger << "or if the port is already listening by another software" << endl;
     }
     else
     {
@@ -53,8 +53,8 @@ void GameServer::run()
                         
                         if (m_ticksPerSecond < 17.5)
                         {
-                            std::cout << "It seems that the server is slow (" << m_ticksPerSecond << " ticks per second)";
-                            std::cout << ", perhaps the server is overloaded ?" << std::endl;
+                            logger << "It seems that the server is slow (" << m_ticksPerSecond << " ticks per second)";
+                            logger << ", perhaps the server is overloaded ?" << endl;
                         }
                         
                         updates = 0;
@@ -75,7 +75,7 @@ void GameServer::run()
 
 void GameServer::stop()
 {
-    std::cout << "Stopping game server" << std::endl;
+    logger << "Stopping game server" << endl;
     m_running = false;
 }
 

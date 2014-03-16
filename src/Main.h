@@ -1,11 +1,11 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-#include <iostream>
 #include <cstdlib>
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>
 #include <ctime>
+#include "Logger.h"
 
 #define SERVER_VERSION_MAJOR 0
 #define SERVER_VERSION_MINOR 0

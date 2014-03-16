@@ -15,6 +15,7 @@
 # Others
 *~
 build
+*.log
 
 # Code::Blocks files
 *.cpb
