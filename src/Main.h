@@ -14,4 +14,9 @@
 #define WOS_GAME_PORT 23290
 #define LOGIN_PORT 23291
 
+namespace sf
+{
+typedef Vector2<double> Vector2d;
+};
+
 #endif /* MAIN_H_ */
