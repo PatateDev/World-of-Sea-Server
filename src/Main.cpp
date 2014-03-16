@@ -2,6 +2,7 @@
 #include "SQL/SQLDatabase.h"
 #include "SQL/UsersTable.h"
 #include "LoginService.h"
+#include "GameServer.h"
 
 int main(int argc, char **argv)
 {
@@ -36,8 +37,10 @@ int main(int argc, char **argv)
 	}
 	
 	LoginService login(database);
-	sf::Thread loginThread(&LoginService::run, &login);
+	GameServer gameServer(database);
+	sf::Thread loginThread(&LoginService::run, &login), gameThread(&GameServer::run, &gameServer);
 	loginThread.launch();
+	gameThread.launch();
 	
 	while (true)
 	{
@@ -47,13 +50,19 @@ int main(int argc, char **argv)
 	    
 	    if (cmd.compare("exit") == 0)
 	    {
+	        gameServer.stop();
 	        login.stop();
 	        break;
+	    }
+	    else if (cmd.compare("ticks") == 0)
+	    {
+	        std::cout << "TPS : " << gameServer.getTicksPerSecond() << std::endl;
 	    }
 	    else
 	        std::cout << cmd << " : unknown command" << std::endl;
 	}
 	
+	gameThread.wait();
 	loginThread.wait();
 
 	return EXIT_SUCCESS;

@@ -11,6 +11,7 @@
 #define SERVER_VERSION_MINOR 0
 #define SERVER_VERSION_PATCH 1
 
+#define WOS_GAME_PORT 23290
 #define LOGIN_PORT 23291
 
 #endif /* MAIN_H_ */
