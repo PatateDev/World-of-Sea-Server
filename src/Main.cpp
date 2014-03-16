@@ -24,17 +24,6 @@ int main(int argc, char **argv)
 	
 	//Initialize random seed
 	srand(time(NULL));
-
-	//Testing database
-	UsersTable table(database);
-	logger << "Looking for mathdu07 in users .." << endl;
-	if (table.isRegistered("mathdu07"))
-	{
-	    logger << "Find !" << endl;
-	    logger << "Password MD5 : " << table.getPassword("mathdu07") << " | ";
-	    logger << "Last IP : " << table.getIP("mathdu07").toString() << " | ";
-	    logger << "Session : " << table.getSession("mathdu07") << endl;
-	}
 	
 	LoginService login(database);
 	GameServer gameServer(database);
